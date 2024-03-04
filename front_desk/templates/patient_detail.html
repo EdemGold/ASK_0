@@ -40,11 +40,11 @@
                 </div>
                 <div class="form-group">
                     <label for="discount">Discount:</label>
-                    <input type="number" class="form-control" id="discount" name="discount" placeholder="Discount percentage">
+                    <input type="number" class="form-control" id="discount" name="discount" placeholder="Discount percentage" required>
                 </div>
                 <div class="form-group">
                     <label for="amountPaid">Total Amount Paid:</label>
-                    <input type="number" class="form-control" id="amountPaid" name="total_amount_paid" placeholder="Total amount paid">
+                    <input type="number" class="form-control" id="amountPaid" name="total_amount_paid" placeholder="Total amount paid" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Add</button>
             </form>
@@ -71,4 +71,21 @@
         <p class="mt-4">No requisitions found for this patient.</p>
     {% endif %}
 </div>
+
+<!-- Script for form submission confirmation -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('addRequisitionForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var form = this;
+        // Perform client-side validation
+        if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+            return;
+        }
+        // If form is valid, submit it
+        form.submit();
+    });
+});
+</script>
 {% endblock %}

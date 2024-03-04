@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Search Patient</h2>
+    <form method="GET" action="{% url 'search-patient' %}">
+        <div class="form-group">
+            <label for="searchQuery">Search Query:</label>
+            <input type="text" class="form-control" id="searchQuery" name="search_query" placeholder="Enter patient name">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <!-- Display search results here -->
+    {% if patients %}
+    <h3>Search Results:</h3>
+    <ul class="list-group">
+        {% for patient in patients %}
+        <li class="list-group-item">
+            <a href="{% url 'patient-detail' patient.id %}">{{ patient.full_name }}</a>
+            <span class="badge badge-secondary">{{ patient.age }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No patients found.</p>
+    {% endif %}
+</div>
+{% endblock %}

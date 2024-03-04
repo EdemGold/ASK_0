@@ -30,7 +30,7 @@ class PatientRequisition(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
     referred_by = models.ForeignKey(ReferredDoctor, on_delete=models.CASCADE)
     requisitions = models.ManyToManyField(Service)
-    discount = models.DecimalField(max_digits=5, decimal_places=2)
+    discount = models.DecimalField(max_digits=5, decimal_places=2)  # Add the discount field here
     total_amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
     total_amount_owed = models.DecimalField(max_digits=10, decimal_places=2, editable=False)
 
@@ -50,6 +50,3 @@ class PatientRequisition(models.Model):
 
     def __str__(self):
         return f"Patient: {self.patient.full_name if self.patient else 'Unregistered'}, Date: {self.date}"
-
-
-

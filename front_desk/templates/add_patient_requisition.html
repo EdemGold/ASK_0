@@ -1,17 +1,54 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title">Patient Requisition Form</h5>
+            <h5 class="card-title">Add Patient Requisition</h5>
         </div>
         <div class="card-body">
-            <form method="post">
+            <form method="post" action="{% url 'add-patient-requisition' %}">
                 {% csrf_token %}
-                {{ form }}
+                <div class="form-group">
+                    {{ form.full_name.label_tag }}
+                    {{ form.full_name }}
+                </div>
+                <div class="form-group">
+                    {{ form.sex.label_tag }}
+                    {{ form.sex }}
+                </div>
+                <div class="form-group">
+                    {{ form.age.label_tag }}
+                    {{ form.age }}
+                </div>
+                <div class="form-group">
+                    {{ form.telephone.label_tag }}
+                    {{ form.telephone }}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    {{ form.referred_by.label_tag }}
+                    {{ form.referred_by }}
+                </div>
+                <div class="form-group">
+                    {{ form.requisitions.label_tag }}
+                    {{ form.requisitions }}
+                </div>
+                <div class="form-group">
+                    {{ form.discount.label_tag }}
+                    {{ form.discount }}
+                </div>
+                <div class="form-group">
+                    {{ form.total_amount_paid.label_tag }}
+                    {{ form.total_amount_paid }}
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
 </div>
 {% endblock %}
+

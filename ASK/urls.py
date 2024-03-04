@@ -1,17 +1,11 @@
 
-from django.urls import path
-from front_desk import views
+from django.contrib import admin
+from django.urls import path, include  # Import include
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('front-desk/', views.front_desk_dashboard, name='front-desk-dashboard'),
-    path('add-referred-doctor/', views.add_referred_doctor, name='add-referred-doctor'),
-    path('add-service/', views.add_service, name='add-service'),
-    path('add-patient-requisition/', views.add_patient_requisition, name='add-patient-requisition'),
-    path('add-patient/', views.add_patient, name='add-patient'),
-    path('search-patient/', views.search_patient, name='search-patient'),
-    path('patient-detail/<int:patient_id>/', views.patient_detail, name='patient-detail'),
-    path('', views.home, name='front-desk-home')
+    path('admin/', admin.site.urls),
+    path('', include('front_desk.urls')),  # Include the URL patterns from the front_desk app
 ]
+
 
  

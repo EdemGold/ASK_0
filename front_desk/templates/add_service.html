@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col-md-6">
             <h2>Add Service</h2>
+            <p>This form is used to add services offered by the hospital along with their prices.</p>
             <form method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}
@@ -14,4 +15,5 @@
     </div>
 </div>
 {% endblock %}
+
 
