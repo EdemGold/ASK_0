@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Search Patient</h5>
+                    <form id="searchForm" method="GET" action="{% url 'search-patient' %}">
+                        <div class="input-group mb-3">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search for patient name" name="search_query">
+                            <div class="input-group-append">
+                                <button id="searchButton" class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 text-right">
+            <a href="{% url 'add-patient-requisition' %}" class="btn btn-primary">Patient Requisition</a>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Add Referring Doctors</h5>
+                    <p class="card-text">Add details of new referring doctors.</p>
+                    <a href="{% url 'add-referred-doctor' %}" class="btn btn-primary">Add Doctor</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Add Services</h5>
+                    <p class="card-text">Add new services offered by the hospital.</p>
+                    <a href="{% url 'add-service' %}" class="btn btn-primary">Add Service</a>
+                </div>
+            </div>
+        </div>
+        <!-- Add more cards for other functionalities -->
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('searchButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        var searchQuery = document.getElementById('searchInput').value;
+        if (searchQuery) {
+            document.getElementById('searchForm').submit();
+        }
+    });
+});
+</script>
+{% endblock %}
+
+
+

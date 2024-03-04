@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ patient.full_name }}</h5>
+            <p class="card-text">Sex: {{ patient.sex }}</p>
+            <p class="card-text">Age: {{ patient.age }}</p>
+            <p class="card-text">Telephone: {{ patient.telephone }}</p>
+            <p class="card-text">Email: {{ patient.email }}</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h5>Requisitions:</h5>
+        <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#addRequisition" aria-expanded="false" aria-controls="addRequisition">
+            Add Requisition
+        </button>
+
+        <div class="collapse" id="addRequisition">
+            <form method="POST" action="{% url 'add-patient-requisition' %}">
+                {% csrf_token %}
+                <input type="hidden" name="patient_id" value="{{ patient.id }}">
+                <div class="form-group">
+                    <label for="referredBy">Referred By:</label>
+                    <select class="form-control" id="referredBy" name="referred_by">
+                        {% for doctor in doctors %}
+                            <option value="{{ doctor.id }}">{{ doctor.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="services">Requisitions:</label>
+                    <select multiple class="form-control" id="services" name="requisitions">
+                        {% for service in services %}
+                            <option value="{{ service.id }}">{{ service.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="discount">Discount:</label>
+                    <input type="number" class="form-control" id="discount" name="discount" placeholder="Discount percentage">
+                </div>
+                <div class="form-group">
+                    <label for="amountPaid">Total Amount Paid:</label>
+                    <input type="number" class="form-control" id="amountPaid" name="total_amount_paid" placeholder="Total amount paid">
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+    </div>
+
+    {% if patient.patientrequisition_set.all %}
+        <div class="mt-4">
+            <h5>Existing Requisitions:</h5>
+            <ul class="list-group">
+                {% for requisition in patient.patientrequisition_set.all %}
+                    <li class="list-group-item">
+                        <p>Date: {{ requisition.date }}</p>
+                        <p>Referred By: {{ requisition.referred_by.name }}</p>
+                        <p>Requisitions: {% for service in requisition.requisitions.all %}{{ service.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                        <p>Discount: {{ requisition.discount }}%</p>
+                        <p>Total Amount Paid: {{ requisition.total_amount_paid }}</p>
+                        <p>Total Amount Owed: {{ requisition.total_amount_owed }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <p class="mt-4">No requisitions found for this patient.</p>
+    {% endif %}
+</div>
+{% endblock %}

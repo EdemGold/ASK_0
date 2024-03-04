@@ -1,4 +1,3 @@
-
 from django.urls import path
 from front_desk import views
 
@@ -12,6 +11,5 @@ urlpatterns = [
     path('search-patient/', views.search_patient, name='search-patient'),
     path('patient-detail/<int:patient_id>/', views.patient_detail, name='patient-detail'),
     path('', views.home, name='front-desk-home')
+    # Add other URLs for the front desk app here
 ]
-
- 
